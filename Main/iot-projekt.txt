@@ -1,0 +1,46 @@
+import machine
+import time
+import BG77
+
+#Setup peripherals
+led_7 = machine.Pin(7, machine.Pin.OUT)
+led_7.value(0)
+
+button0 = machine.Pin(6, machine.Pin.IN)
+
+bg_uart = machine.UART(0, baudrate=115200, tx=machine.Pin(0), rxbuf=256, rx=machine.Pin(1), timeout = 0, timeout_char=1)
+
+bg_uart.write(bytes("AT\r\n","ascii"))
+print(bg_uart.read(10))
+
+
+module = BG77.BG77(bg_uart, verbose=True, radio=False)
+
+time.sleep(3)
+module.sendCommand("AT+CPIN?\r\n")
+module.sendCommand("AT+CFUN=1\r\n")
+
+module.sendCommand("AT+QCFG=\"band\",0x0,0x80084,0x80084,1\r\n")
+module.setRadio(1)
+module.setAPN("lpwa.vodafone.iot")
+
+module.sendCommand("AT+QNWINFO\r\n")
+
+
+#Infinite Loop
+while(1):
+    b_value = button0.value()
+    
+    if not b_value:
+        module.sendCommand("AT+QIRD=1\r\n")
+        module.sendCommand("AT+QCSCON=1\r\n")
+        module.sendCommand("AT+QIOPEN=1,1,\"UDP\",\"147.229.148.105\",7004\r\n")
+        module.sendCommand("AT+QISEND=1,15\r\n")
+        module.sendCommand("fotka zachycena\r\n")
+        module.sendCommand("AT+QIRD=1\r\n")
+    
+    else:
+        led_7.value(0)
+    
+    time.sleep(1)
+    
