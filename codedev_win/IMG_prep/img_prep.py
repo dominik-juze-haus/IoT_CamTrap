@@ -5,7 +5,7 @@ except ImportError:
     import numpy as np
 
 
-def resize_image(image):
+#def resize_image(image):
     # Convert the byte array to a numpy array
     image_array = np.frombuffer(image, dtype=np.uint8)
     print(f"Image array shape: {image_array}")
