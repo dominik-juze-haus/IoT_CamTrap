@@ -1,5 +1,6 @@
 #import machine
 import time
+import usocket as socket
 
 def toggle(led):
     if led == 1:
@@ -8,10 +9,12 @@ def toggle(led):
         led = 1
     return led
 
-def send_img(server_ip, server_port, led7):
-
+def send_img(led7, random_num):
+    #addr = socket.getaddrinfo(server_ip, server_port)[0] #get the address of the server
+    #sock.connect(addr) #connect to the server
+    rootimg = '/sd/image' + str(random_num) + '.png'
     try:
-        capt_img = open('testpic.jpg', 'rb')
+        capt_img = open(rootimg, 'rb')
     except:
         capt_img = open(r'c:\ZCoding\IoT\CamTrap\IoT_CamTrap\codedev_win\IMG_prep\testpic.jpg', 'rb')
     #print(img)
@@ -21,20 +24,19 @@ def send_img(server_ip, server_port, led7):
         if not packet:
             print('End of file reached') #send end of file packet for the receiver to know that the image is done sending
             endof_file = True
+            #sock.close() #close the socket connection
             break
 
         if endof_file == False:
             print('Sending packet...') #send the image packet to the receiver
-            print(len(packet))
-            #toggle(led7.value())
-            #toggle(led7.value())
-            ack = b'ACK' # Simulate receiving an ACK
-
-        #print(packet)
-        if ack != b'ACK':
-            print('No ACK received, retrying...')
-            time.sleep(1)
-            packet.seek(packet.tell() - 512)
+            #Packet sending commands 
+            #sock.send(packet) #send the packet to the receiver
+            time.sleep(0.1) #simulate the time taken to send the packet
+            toggle(led7.value())
+            time.sleep(0.1) #simulate the time taken to send the packet
+            toggle(led7.value())
+            print('Packet sent')
+        
             
 #TEST function call goofy aaah 
-#send_img(1,1,1)
+#send_img(1,1)
