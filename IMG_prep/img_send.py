@@ -1,6 +1,6 @@
 #import machine
 import time
-import usocket as socket
+
 
 def toggle(led):
     if led == 1:
@@ -16,7 +16,7 @@ def send_img(led7, random_num):
     try:
         capt_img = open(rootimg, 'rb')
     except:
-        capt_img = open(r'c:\ZCoding\IoT\CamTrap\IoT_CamTrap\codedev_win\IMG_prep\testpic.jpg', 'rb')
+        capt_img = open(r'c:\ZCoding\IoT\CamTrap\IoT_CamTrap\codedev_win\IMG_prep\image4.jpg', 'rb')
     #print(img)
     while True:
         packet = capt_img.read(512)
