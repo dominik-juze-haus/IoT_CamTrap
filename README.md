@@ -91,4 +91,3 @@ Použité součástky a technologie jsou energeticky úsporné, ale výsledná s
 
 ---
 
-GitHub repo: [https://github.com/dominik-juze-haus/IoT_CamTrap](https://github.com/dominik-juze-haus/IoT_CamTrap)
