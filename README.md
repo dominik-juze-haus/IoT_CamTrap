@@ -90,4 +90,5 @@ Byla implementována chybová opatření a fungují správně.
 Použité součástky a technologie jsou energeticky úsporné, ale výsledná spotřeba závisí na typu kamerového modulu. Napájení pomocí 4 AA baterií + solární článek bude dále optimalizováno.
 
 ---
+[Úspěšný test](https://www.youtube.com/watch?v=FwUa_-7es-M)
 
